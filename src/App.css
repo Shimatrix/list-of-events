@@ -1,0 +1,15 @@
+#root {
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 30px;
+}
+
+button {
+  background-color: #393a3a;
+  margin-top: 25px;
+}
