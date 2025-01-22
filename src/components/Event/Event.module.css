@@ -1,0 +1,24 @@
+.event__card {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 4px;
+    padding: 12px;
+    -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.event__card_btns {
+    text-align: right;
+}
+
+.event__card_btn {
+    display: inline-block;
+    background-color: transparent;
+    border: 1px solid transparent;
+    outline: none;
+    color: #393a3a;
+    padding: 5px;
+}
