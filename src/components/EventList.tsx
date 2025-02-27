@@ -15,7 +15,7 @@ export const EventList: React.FC<EventListProps> = ({
 }) => {
   return (
     <ul className="events__list">
-      {events.map((event) => (
+      {events.map((event) => ( //Перебираем полученный массив мероприятий и выводим данные на экран
         <li className="events__item" key={event.id}>
           <span>Название: {event.name}</span>
           <span>Дата: {event.date}</span>

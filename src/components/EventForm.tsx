@@ -16,13 +16,16 @@ export const EventForm: React.FC<EventFormProps> = ({
   onChange,
   setEditEventState,
 }) => {
+  //Стейт для хранения данных формы
   const [formData, setFormData] = useState<Pick<Event, "name" | "date">>({
     name: "",
     date: "",
   });
 
+  //Стейт для хранения ошибок формы с последующей валидацией
   const [errors, setErrors] = useState<{ name?: string; date?: string }>({});
 
+  //Хук для обработки состояния в случае начала и завершения редактирования мероприятия
   useEffect(() => {
     if (editEventState === null) {
       setFormData({
@@ -38,16 +41,19 @@ export const EventForm: React.FC<EventFormProps> = ({
     }
   }, [editEventState]);
 
+  //Форматирование даты мероприятия для корректного отображения в поле инпут с типом date
   const formatDateToInput = (dateString: string): string => {
     const [day, month, year] = dateString.split(".");
     return `${year}-${month}-${day}`;
   };
 
+  //Форматирование даты мероприятия для привычной (ДД.ММ.ГГГГ) записи в стейт
   const formatDate = (inputDate: string) => {
     const [year, month, day] = inputDate.split("-");
     return `${day}.${month}.${year}`;
   };
 
+  //Функция передачи данных формы в стейт
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "date") {
@@ -58,6 +64,7 @@ export const EventForm: React.FC<EventFormProps> = ({
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
 
+  //Функция валидации формы и установки текста ошибки в стейт Error
   const validateForm = () => {
     const newErrors: { name?: string; date?: string } = {};
 
@@ -76,6 +83,7 @@ export const EventForm: React.FC<EventFormProps> = ({
     return Object.keys(newErrors).length === 0;
   };
 
+  //Функция отправки данных формы для случаев добавления или редактирования мероприятия
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!validateForm()) {
