@@ -1,0 +1,85 @@
+.list__container {
+    min-width: 430px;
+    max-width: 1200px;
+    width: 100%;
+    background-color: #ecedf6;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 34px 36px 36px 36px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    text-align: start;
+    list-style: none;
+}
+
+.list__item {
+    width: 100%;
+    min-height: 70px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.list__item:last-of-type {
+    margin-bottom: 0;
+}
+
+.list__item__info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-width: calc(100% - 100px);
+    min-width: 200px;
+}
+
+.list__item__name {
+    font-weight: bold;
+    word-break: break-all;
+    line-height: 20px;
+}
+
+.list__item__date {
+    color: #646681;
+}
+
+.list_empty {
+    font-size: 20px;
+    font-weight: 400;
+    align-self: center;
+    margin: 0 auto;
+}
+
+.button__container {
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.button {
+    background-image: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    height: 40px;
+    width: 40px;
+}
+
+.button_edit {
+    background-image: url(../../images/pen.svg);
+}
+
+.button_remove {
+    background-image: url(../../images/trash.svg);
+}
