@@ -1,0 +1,79 @@
+.list {
+  margin-top: 20px;
+}
+
+.list h3 {
+  color: #333;
+}
+
+.emptyList {
+  color: #666;
+  font-style: italic;
+}
+
+.events {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.eventItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.eventItem:hover{
+  background-color: #dfdcdc;
+}
+
+.eventContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.eventTitle {
+  font-weight: bold;
+  margin: 0;
+}
+
+.eventDate {
+  color: #555;
+  font-size: 0.9em;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actionButton {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.editButton {
+  background-color: #28a745;
+  color: white;
+}
+
+.editButton:hover {
+  background-color: #218838;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}
