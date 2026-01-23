@@ -19,7 +19,7 @@ const EventForm: React.FC<EventProps> = ({ editEvent, onSubmit }) => {
             setDate('');
         };
     }, [editEvent]);
-    
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -33,13 +33,13 @@ const EventForm: React.FC<EventProps> = ({ editEvent, onSubmit }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input type='text' placeholder='Название мероприятия' value={title} onChange={(e) => setTitle(e.target.value)} required />
-            <input type='date' value={date} onChange={(e) => setDate(e.target.value)} required />
+            <input type='text' className='eventInput' placeholder='Название мероприятия' value={title} onChange={(e) => setTitle(e.target.value)} required />
+            <input type='date' className='eventDateInput' value={date} onChange={(e) => setDate(e.target.value)} required />
             <div>
                 {!editEvent ? (
-                    <button type='submit' className='formAddButton'>Добавить</button>
+                    <button type='submit' className='button formAddButton'>Добавить новое</button>
                 ) : (
-                    <button type='submit' className='formEditButton'>Сохранить изменения</button>
+                    <button type='submit' className='button formAddButton'>Сохранить изменения</button>
                 )}
             </div>
         </form>

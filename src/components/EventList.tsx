@@ -21,13 +21,15 @@ const EventsList: React.FC<EventsListProps> = ({ events, onEdit, onDelete }) => 
             {events.length === 0 ? (
                 <p className="emptyListText">Мероприятия отсутсвуют</p>
             ) : (
-            events.map((event) => (
-                <li key={event.id}>
-                    <p className="eventText">ID:{event.id} - Название: '{event.title}' Дата: {formatDate(event.date)}</p>
-                    <button className="listEditButton" onClick={() => onEdit(event)}>Редактировать</button>
-                    <button className="lsitDeleteButton" onClick={() => onDelete(event.id)}>Удалить</button>
-                </li>
-            ))
+                events.map((event) => (
+                    <li key={event.id} className="listItem">
+                        <p className="eventText">ID:{event.id} - Название: '{event.title}' Дата: {formatDate(event.date)}</p>
+                        <div className="buttonsWrapper">
+                            <button className="button listEditButton" onClick={() => onEdit(event)}>Редактировать</button>
+                            <button className="button listDeleteButton" onClick={() => onDelete(event.id)}>Удалить</button>
+                        </div>
+                    </li>
+                ))
             )}
         </ul>
     );
