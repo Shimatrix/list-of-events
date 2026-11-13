@@ -59,9 +59,9 @@ export function DatePicker({ value, onChange, onPick, min }: DatePickerProps) {
     if (mode === 'months') {
       return compareISO(lastDayOfYearISO(viewYear - 1), minDate) >= 0;
     }
-
-    const prevWindowEnd = viewYear - 1;
-    return compareISO(lastDayOfYearISO(prevWindowEnd), minDate) >= 0;
+    // Режим years: проверяем, есть ли доступные года в предыдущем окне.
+    // Сравниваем конец предыдущего года с minDate.
+    return compareISO(lastDayOfYearISO(viewYear - 1), minDate) >= 0;
   })();
 
   const goPrev = () => {

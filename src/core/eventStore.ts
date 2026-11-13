@@ -54,14 +54,6 @@ export function persistEvents(): void {
   }
 }
 
-export function getEvents(): EventItem[] {
-  return events;
-}
-
-export function getEventsByDate(date: string): EventItem[] {
-  return sortEvents(events.filter((e) => e.date === date));
-}
-
 export function addEvent(input: Omit<EventItem, 'id'>): EventItem {
   const event: EventItem = { id: makeId(), ...input };
   events = [...events, event];

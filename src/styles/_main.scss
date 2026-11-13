@@ -19,7 +19,6 @@
   flex-direction: column;
   gap: 1.5rem;
   padding: 2rem;
-  overflow-anchor: none;
 
   &__title {
     font-family: variables.$subtitle-text;
@@ -57,10 +56,6 @@
     cursor: pointer;
     padding: 0;
     letter-spacing: 0;
-
-    &:hover {
-      background-color: var(--day-bg-hover);
-    }
 
     &:hover:not(:disabled) {
       background-color: var(--day-bg-hover);

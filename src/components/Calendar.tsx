@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { MonthConfig } from '../core/types';
 import { buildMonthConfig } from '../core/dateUtils';
 import { MonthGrid } from './MonthGrid';
@@ -34,15 +34,15 @@ export function Calendar({ selectedDate, onSelectDate }: CalendarProps) {
   const containerRef = useRef<HTMLElement | null>(null);
   const topSentinelRef = useRef<HTMLDivElement | null>(null);
   const bottomSentinelRef = useRef<HTMLDivElement | null>(null);
-  const pendingRestoreRef = useRef<string | null>(null);
 
   const [initialNow] = useState(() => new Date());
   const [center, setCenter] = useState(() => ({
     year: initialNow.getFullYear(),
     month: initialNow.getMonth(),
   }));
+
   const [months, setMonths] = useState<MonthConfig[]>(() =>
-    buildWindow(initialNow.getFullYear(), initialNow.getMonth()),
+    buildWindow(center.year, center.month),
   );
 
   const isCurrentMonth = useCallback(
@@ -53,41 +53,13 @@ export function Calendar({ selectedDate, onSelectDate }: CalendarProps) {
   );
 
   const shiftWindow = useCallback((delta: number) => {
-    setCenter((prevCenter) => {
-      const { year, month } = shiftMonth(prevCenter.year, prevCenter.month, delta);
-
-      const container = containerRef.current;
-      if (container) {
-        const containerRect = container.getBoundingClientRect();
-        const monthEls = container.querySelectorAll<HTMLElement>('[data-month]');
-        for (const el of monthEls) {
-          const rect = el.getBoundingClientRect();
-          if (rect.bottom > containerRect.top) {
-            pendingRestoreRef.current = el.dataset.month ?? null;
-            break;
-          }
-        }
-      }
-
-      setMonths(buildWindow(year, month));
-      return { year, month };
-    });
-  }, []);
+    const nextCenter = shiftMonth(center.year, center.month, delta);
+    setCenter(nextCenter);
+    setMonths(buildWindow(nextCenter.year, nextCenter.month));
+  }, [center]);
 
   const loadBack = useCallback(() => shiftWindow(-SHIFT_SIZE), [shiftWindow]);
   const loadForward = useCallback(() => shiftWindow(SHIFT_SIZE), [shiftWindow]);
-
-  useLayoutEffect(() => {
-    const key = pendingRestoreRef.current;
-    const container = containerRef.current;
-    if (!key || !container) return;
-
-    const el = container.querySelector<HTMLElement>(`[data-month="${key}"]`);
-    if (el) {
-      container.scrollTop = el.offsetTop - container.offsetTop;
-    }
-    pendingRestoreRef.current = null;
-  }, [months]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -111,6 +83,7 @@ export function Calendar({ selectedDate, onSelectDate }: CalendarProps) {
     return () => observer.disconnect();
   }, [loadBack, loadForward]);
 
+  // Первоначальный скролл к текущему месяцу
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -118,9 +91,11 @@ export function Calendar({ selectedDate, onSelectDate }: CalendarProps) {
       `[data-month="${monthKey(initialNow.getFullYear(), initialNow.getMonth())}"]`,
     );
     if (!el) return;
-    container.scrollTop = el.offsetTop - container.offsetTop;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const timer = setTimeout(() => {
+      container.scrollTop = el.offsetTop - container.offsetTop;
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [initialNow]);
 
   return (
     <section className="calendar" ref={containerRef}>

@@ -183,9 +183,10 @@ EventForm.tsx (dialog.add.modal)
 - Сентинелы **в потоке** (`.calendar__sentinel`), не `position: absolute`
 - `IntersectionObserver` с `root: container`, `rootMargin: '600px 0px'`
 - `loadBack` / `loadForward` — `shiftWindow(±SHIFT_SIZE)`
-- Якорное восстановление скролла: `pendingRestoreRef` + `useLayoutEffect` по `[months]`, поиск элемента по `data-month`
-- `data-month={year}-{month}` на `.calendar__month` (паддинг месяца до двух цифр)
-- `isCurrentMonth` фиксируется **на момент монтирования** через `useState(() => new Date())`
+- Нативная компенсация скролла: ручное восстановление (`pendingRestoreRef`) и `overflow-anchor: none` удалены. Браузер сам удерживает позицию при подгрузке месяцев
+- `shiftWindow` — чистая функция без побочных эффектов. Чтение DOM для якоря (если было) удалено, `setCenter` и `setMonths` вызываются отдельно
+- Первоначальный скролл к текущему месяцу — через `useEffect с setTimeout(..., 0)`, чтобы дождаться загрузки шрифтов
+- `isCurrentMonth` фиксируется на момент монтирования через `useState(() => new Date())`
 
 **Константы:**
 ```ts
@@ -345,7 +346,7 @@ src/
 - Окно месяцев фиксированного радиуса — DOM не разрастается при листании до 2050+
 - Сентинелы в потоке, не absolute — иначе `IntersectionObserver` цепляется за позиционированный родитель
 - `root: container`, не viewport — скроллится колонка календаря, а не окно
-- Якорное восстановление скролла: `captureAnchor()` + `useLayoutEffect`, `anchorRef.current = null` всегда в конце
+- Нативная компенсация скролла браузером (без `overflow-anchor: none`). Ручной якорь удалён, чтобы не конфликтовать с браузером
 - `data-month` на `.calendar__month` для дебага и якоря
 
 ### EventList + Undo: почему именно так
