@@ -1,0 +1,36 @@
+@use 'variables';
+
+.header {
+  display: flex;
+  block-size: variables.$header-block-size;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline-end: 3rem;
+  gap: 0.5rem;
+
+  &__logo {
+    inline-size: variables.$logo-size;
+  }
+
+  &__title {
+    font-family: variables.$title-text;
+    font-size: variables.$title-text-size;
+    color: var(--title-color);
+    text-transform: uppercase;
+    letter-spacing: 0.25rem;
+    text-align: center;
+  }
+
+  &__button {   
+    border: 0.1rem solid var(--btn-border);
+  }
+
+  &__button-theme {
+    block-size: 100%;
+  }
+
+  &__theme {
+    display: block;
+    block-size: 100%;
+  }
+}
